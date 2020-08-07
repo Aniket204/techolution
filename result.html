@@ -1,0 +1,211 @@
+<head> <link rel="stylesheet" href="style.css"> </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+    th  { 
+        color:#fff;
+        }
+}
+
+<h1>Students Result Board</h1>
+
+</style>
+
+<link rel="stylesheet" href="/style.css">
+
+<table class="table table-striped">
+    <tr  class="bg-info">
+        <th><i>Student Name</i></th>
+        <th><i>Roll Number</i></th>
+        <th><i>Total Marks</i></th>
+        <th><i>Status</i></th>
+    </tr>
+
+    <tbody id="myTable">
+        <h3><b>Students Result Board</b></h3>      
+    </tbody>
+
+</table>
+
+<script>
+
+    <!-- Paste JSON file in this myArray to test on a different dataset --> 
+
+    var myArray = [
+       {
+        "name":"rajiv",
+        "marks":{
+            "Maths":"18",
+            "English":"21",
+            "Science":"45"
+        },
+        "rollNumber":"KV2017-5A5"
+    },
+    {
+        "name":"zoya",
+        "marks":{
+            "Maths":"42",
+            "English":"31",
+            "Science":"50"
+        },
+        "rollNumber":"KV2017-5A8"
+    },
+    {
+        "name":"aniket",
+        "marks":{
+            "Maths":"42",
+            "English":"21",
+            "Science":"50"
+        },
+        "rollNumber":"KV2017-5A2"
+    },    
+    {
+        "name":"pratikesh",
+        "marks":{
+            "Maths":"32",
+            "English":"31",
+            "Science":"50"
+        },
+        "rollNumber":"KV2017-5A4"
+    },    
+    {
+        "name":"shreya",
+        "marks":{
+            "Maths":"42",
+            "English":"31",
+            "Science":"10"
+        },
+        "rollNumber":"KV2017-5A6"
+    },    
+    {
+        "name":"shubham",
+        "marks":{
+            "Maths":"42",
+            "English":"22",
+            "Science":"50"
+        },
+        "rollNumber":"KV2017-5A7"
+    },    
+    {
+        "name":"ashwini",
+        "marks":{
+            "Maths":"23",
+            "English":"31",
+            "Science":"50"
+        },
+        "rollNumber":"KV2017-5A3"
+    },    
+    {
+        "name":"abhishek",
+        "marks":{
+            "Maths":"50",
+            "English":"30",
+            "Science":"37"
+        },
+        "rollNumber":"KV2017-5A1"
+    }
+    ]
+
+    $(document).ready(function(){
+        $('#table_id tr.y_n').each(function(){
+            if ($(this).text() == 'FAIL') {
+                $(this).css('color','red');
+            }
+            else if($(this).text() == 'TOPPER') {
+                $(this).css('color','#33cc33');
+            }
+            else {
+                $(this).css('color','##003300');
+            }
+        });;
+    });
+
+    function dynamicSort(property) {
+        var sortOrder = 1;
+        if(property[0] === "-") {
+            sortOrder = -1;
+            property = property.substr(1);
+        }
+        return function (a,b) {
+        var result = (a[property]<b[property]) ? -1 : (a[property]>b[property]) ? 1 : 0
+            return result * sortOrder;
+        }
+    }
+
+    myArray.sort(dynamicSort("name"));
+    
+    buildTable(myArray)
+
+    function buildTable(data) {
+        var table = document.getElementById('myTable')
+
+        var topper_marks = topper(myArray)
+
+        for (var i = 0; i < data.length; i++){
+
+            const name = data[i].name;
+            const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1)
+
+            var sub1 = parseInt(data[i].marks.Maths, 10);
+            var sub2 = parseInt(data[i].marks.English, 10);
+            var sub3 = parseInt(data[i].marks.Science, 10);
+            var add = sub1+sub2+sub3;
+            if(topper_marks == add) {
+                var pass_status = "TOPPER";
+            }
+            else {
+                pass_status = pass(sub1, sub2, sub3);
+            }
+            var row = `<tr class="row_${pass_status}">
+                            <td>${nameCapitalized}</td>
+                            <td>${data[i].rollNumber}</td>
+                            <td>${add}</td> 
+                            <td>${pass_status}</td></tr>
+                      </tr>`
+            table.innerHTML += row;
+        }
+    }
+
+    function topper(data) {
+
+            var table = document.getElementById('myTable');
+
+            var a = parseInt(data[0].marks.Maths, 10);
+            var b = parseInt(data[0].marks.English, 10);
+            var c = parseInt(data[0].marks.Science, 10);
+            var max = a+b+c;
+            
+        for (var i = 1; i < data.length; i++) {
+
+            var sub1 = parseInt(data[i].marks.Maths, 10);
+            var sub2 = parseInt(data[i].marks.English, 10);
+            var sub3 = parseInt(data[i].marks.Science, 10);
+            var add = sub1+sub2+sub3;
+            if(add>max){
+                max = add;
+            }            
+        }
+        return max;
+    }
+
+    function pass(x, y, z) {
+        var val = "";
+        var empty = ""
+        if(x<20 || y<20 || z<20) {
+            val = "FAIL";
+        }
+        else {
+            val = "PASS";
+        }
+        return val;
+    }
+
+    function capitalizeFLetter() { 
+          var input = data[i].name; 
+          var string = input.value; 
+          x.innerHTML = string.charAt(0).toUpperCase() + string.slice(1); 
+        } 
+
+</script>

@@ -1,0 +1,37 @@
+<h3>
+  <span style="font-family:sans-serif">Student Admission portal</span>
+</h3>
+
+<head> <link rel="stylesheet" href="formstyle.css"> </head>
+
+<div class="form-style-5">
+<form>
+  <script type="text/javascript" src="validation.js"></script>
+
+  <label for="firstName"></label> <input type="text" id="fname" name="fname" maxlength="20" onkeyup="checkForm()" placeholder="First Name *" /> 
+  <br />
+
+  <label for="lastname"></label> <input type="text" id="lname" name="lname" maxlength="20" onkeyup="checkForm()" placeholder="Last Name *" /> 
+  <br />
+
+  <label for="class"></label> <input type="text" id="class" name="class" maxlength="3" onkeyup="checkForm()" placeholder="Class *" />  
+  <br />
+
+  <label for="YOP"></label> <input type="number" id="YOP" name="YOP" min="2017" onkeyup="checkForm()" placeholder="Year of Passing *" />  
+  <br />
+
+  <label for="Percentage"></label> <input type="number" id="Percent" name="Percent" min="0" max="100" onkeyup="checkForm()" placeholder="Percentage *" /> 
+  <br />
+  
+  <button type="button" onclick="myFunction()" id="btn-submit" disabled="disabled">
+  Submit</button>
+
+  <script>
+  function myFunction() 
+  {
+      location.replace("success.html")
+  }
+  </script>
+
+</form>
+</div>
